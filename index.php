@@ -9,18 +9,18 @@
 <body>
 <link rel="stylesheet" type="text/css" href="theme.css">
 <script src="myScript.js"></script>
+
+<div id="wrapper">
+
+
 <?php include('header.php'); ?>
 
-<div style="width: 90%;height:900px;">
+<div style="width: 90%;">
     <!-- Create a canvas for Web WorldWind. -->
     <canvas id="canvasOne" >
         Your browser does not support HTML5 Canvas.
     </canvas>
 </div>
-
-<form action="" method="post">
-<input type="submit" value="CREATE AN ACCOUNT" class="newAccButton" name="newAccButton" class="but" />
-</form> 
 
 <div id="home">
 <br>
@@ -28,6 +28,9 @@
 	<input type="email" class="emailForm" size="40" name="Email" placeholder="   EMAIL"><br>
 	<input type="password" id="passwordForm" size="40" name="Password" placeholder="   PASSWORD"><br>
 	<input type="submit" class="loginButton" value="LOGIN"  name="loginButton"/>
+	</form> 
+	<form action="" method="post">
+	<input type="submit" value="CREATE AN ACCOUNT" class="newAccButton" name="newAccButton" class="but" />
 	</form> 
 <?php
 if(isset($_POST["contactUsBut"])){
@@ -84,6 +87,11 @@ if(isset($_POST["newAccButton"])){
 	</button>
 	</form>
 </div>
+
+
+
+
+
 <?php
 if(isset($_POST["satListButton"])){
 	header('Location: /satellites.php');
@@ -183,5 +191,6 @@ function animateTest(model) {
 
 }
 </script>
+</div>
 </body>
 </html>

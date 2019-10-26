@@ -8,6 +8,7 @@
 <body>
 <link rel="stylesheet" type="text/css" href="theme.css">
 <script src="myScript.js"></script>
+
 <?php include('header.php'); ?>
 
 <h2 id="myAcc">MY ACCOUNT</h2>
@@ -48,17 +49,21 @@ TOTAL PROPS: 0
 		<img src="/resources/globe.png" alt="GAME">
 	</button>
 	</form>
-	<div id="leaderBoardButton">
+	<form action="" method="post">
+	<button type="submit" id="leaderBoardButton" name="leaderBoardButton">
 		<img src="/resources/trophy.png" alt="LEADERS">
-	</div>
+	</button>
+	</form>
 	<form action="" method="post">
 	<button type="submit" id="contactUsButton" name="contactUsButton">
 		<img src="/resources/contact.png" alt="CONTACT">
 	</button>
 	</form>
 </div>
-
 <?php
+if(isset($_POST["leaderBoardButton"])){
+	header('Location: /leaderboard.php');
+}
 if(isset($_POST["satListButton"])){
 	header('Location: /satellites.php');
 }

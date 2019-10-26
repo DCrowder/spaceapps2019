@@ -18,15 +18,44 @@
     </canvas>
 </div>
 
-<form action="" method="post">
-	<input type="submit" class="checkinButton" value="CHECK IN"  name="checkinButton"/>
-</form> 
+	
+<input type="submit" onclick="alert('NO SATELLITES OVERHEAD!');" id="checkinButton" value="CHECK IN" name="checkinButton"/>
+
+<input type="submit" onclick="getLocation();wwd.goTo(new WorldWind.Location(mylat,mylong));" id="goToMe" value="GO TO ME"/>
+	
+<script>
+var TLE1;
+var TLE2;
+var TLE3;
+var TLE4;
+var TLE5;
+var TLE6;
+fetch("https://www.n2yo.com/rest/v1/satellite/tle/40059&apiKey=AKGE9N-GQRYHC-ZKEZ9E-47WY")
+   .then(async r=> TLE1=(await r.json()))
+   .catch(e=>console.error('Boo...' + e))
+fetch("https://www.n2yo.com/rest/v1/satellite/tle/5&apiKey=AKGE9N-GQRYHC-ZKEZ9E-47WY")
+   .then(async r=> TLE2=(await r.json()))
+   .catch(e=>console.error('Boo...' + e))
+fetch("https://www.n2yo.com/rest/v1/satellite/tle/25544&apiKey=AKGE9N-GQRYHC-ZKEZ9E-47WY")
+   .then(async r=> TLE3=(await r.json()))
+   .catch(e=>console.error('Boo...' + e))
+fetch("https://www.n2yo.com/rest/v1/satellite/tle/40378&apiKey=AKGE9N-GQRYHC-ZKEZ9E-47WY")
+   .then(async r=> TLE4=(await r.json()))
+   .catch(e=>console.error('Boo...' + e))
+fetch("https://www.n2yo.com/rest/v1/satellite/tle/36508&apiKey=AKGE9N-GQRYHC-ZKEZ9E-47WY")
+   .then(async r=> TLE5=(await r.json()))
+   .catch(e=>console.error('Boo...' + e))
+fetch("https://www.n2yo.com/rest/v1/satellite/tle/39270&apiKey=AKGE9N-GQRYHC-ZKEZ9E-47WY")
+   .then(async r=> TLE6=(await r.json()))
+   .catch(e=>console.error('Boo...' + e))
+setTimeout(function(){ console.log(TLE1.tle+"\n\n"+TLE2.tle+"\n\n"+TLE3.tle+"\n\n"+TLE4.tle+"\n\n"+TLE5.tle+"\n\n"+TLE6.tle); }, 1000);
+</script>
 
 <h3 id="checkStatus">
 NO SATELLITES OVERHEAD
 </h3>
 <h3 id="spotStatus">
-NOT IN A HOTSPOT
+CHECK IN NOT AVAILABLE
 </h3>
 
 <br>
@@ -42,9 +71,11 @@ NOT IN A HOTSPOT
 		<img src="/resources/myAcc.png" alt="ACCOUNT">
 	</button>
 	</form>
-	<div id="leaderBoardButton">
+	<form action="" method="post">
+	<button type="submit" id="leaderBoardButton" name="leaderBoardButton">
 		<img src="/resources/trophy.png" alt="LEADERS">
-	</div>
+	</button>
+	</form>
 	<form action="" method="post">
 	<button type="submit" id="contactUsButton" name="contactUsButton">
 		<img src="/resources/contact.png" alt="CONTACT">
@@ -52,6 +83,9 @@ NOT IN A HOTSPOT
 	</form>
 </div>
 <?php
+if(isset($_POST["leaderBoardButton"])){
+	header('Location: /leaderboard.php');
+}
 if(isset($_POST["satListButton"])){
 	header('Location: /satellites.php');
 }
@@ -109,29 +143,29 @@ getLocation();
 	wwd.addLayer(new WorldWind.StarFieldLayer());
 
 	// Create a layer to hold the surface shapes.
-        var shapesLayer = new WorldWind.RenderableLayer("Surface Shapes");
-        wwd.addLayer(shapesLayer);
+//        var shapesLayer = new WorldWind.RenderableLayer("Surface Shapes");
+//        wwd.addLayer(shapesLayer);
 
         // Create and set common attributes for the surface shapes.
         // Real apps typically create new attributes objects for each shape unless they know the attributes
         // can be shared among all shapes.
-        var attributes = new WorldWind.ShapeAttributes(null);
-        attributes.outlineColor = WorldWind.Color.BLUE;
-        attributes.interiorColor = new WorldWind.Color(0, 1, 1, 0.5);
+//        var attributes = new WorldWind.ShapeAttributes(null);
+//        attributes.outlineColor = WorldWind.Color.BLUE;
+//        attributes.interiorColor = new WorldWind.Color(0, 1, 1, 0.5);
 
         // Create common highlight attributes. These are displayed whenever the user hovers over the shapes.
-        var highlightAttributes = new WorldWind.ShapeAttributes(attributes);
-        highlightAttributes.interiorColor = new WorldWind.Color(1, 1, 1, 1);
+//        var highlightAttributes = new WorldWind.ShapeAttributes(attributes);
+//        highlightAttributes.interiorColor = new WorldWind.Color(1, 1, 1, 1);
 
 	// Create a surface circle.
 
 	//setTimeout('alert(mylat+" "+mylong);',0);
 	//alert(mylat+" "+mylong+" second");
-        var circle = new WorldWind.SurfaceCircle(new WorldWind.Location(27,-83), 4e5, attributes);
-        circle.highlightAttributes = highlightAttributes;
-        shapesLayer.addRenderable(circle);
+//        var circle = new WorldWind.SurfaceCircle(new WorldWind.Location(27,-83), 4e5, attributes);
+//        circle.highlightAttributes = highlightAttributes;
+//        shapesLayer.addRenderable(circle);
 	// Set up a highlight controller to handle highlighting when the user hovers the shapes.
-        var highlightController = new WorldWind.HighlightController(wwd);
+//        var highlightController = new WorldWind.HighlightController(wwd);
 	
 var modelLayer = new WorldWind.RenderableLayer();
 wwd.addLayer(modelLayer);

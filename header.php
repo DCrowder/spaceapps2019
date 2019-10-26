@@ -1,13 +1,13 @@
 <?php
 
-$conn = mysqli_connect('localhost:3306', 'root', '{password}', 'satellitechasers');
+$conn = mysqli_connect('localhost:3306', 'root', '3s71A83l8_!', 'satellitechasers');
 
 
 
 ?>
 <form action="" method="post">
 <button class="header" name="header">
-	<h1>SATELLITE</h1><h1>CHASERS</h1>
+	<h1>SATELLITE CHASERS</h1>
 </button>
 </form>
 <?php
