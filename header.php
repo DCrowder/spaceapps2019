@@ -1,6 +1,6 @@
 <?php
 
-$conn = mysqli_connect('localhost:3306', 'root', '3s71A83l8_!', 'satellitechasers');
+$conn = mysqli_connect('localhost:3306', 'root', '{password}', 'satellitechasers');
 
 
 
