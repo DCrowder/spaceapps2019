@@ -1,0 +1,533 @@
+body {
+	
+	background-color:#F5F5F5;
+}
+p{
+	font-size:1em;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	position:absolute;
+	width:40%;
+	left:30%;
+	bottom:7.75%;
+	text-align:center
+}
+#errorHandle{
+	font-size:2em;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	position:absolute;
+	width:40%;
+	left:30%;
+	bottom:11%;
+	text-align:center
+}
+h1{
+	font-weight:1000;
+	font-size:400%;
+	letter-spacing:40px;
+	line-height: 50%;
+	vertical-align: middle;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+}
+#newAccLabel{
+	line-height:50px;
+	font-size:2.5em;
+	font-weight:100;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	position: absolute;
+	top:14%;
+	width:50%;
+	left:25%;
+	text-align:center;
+}
+#myAcc{
+	line-height:50px;
+	font-size:2.5em;
+	font-weight:100;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	position: absolute;
+	top:10%;
+	width:50%;
+	left:25%;
+	text-align:center;
+}
+#myAccForm{
+	background-color:black;
+	width:90%;
+	height:70%;
+	position: absolute;
+	top:18%;
+	left:5%;
+	border-radius:30px;
+}
+.header{
+	text-align:center;
+	position: absolute;
+	top: 0;
+	right: 5%;
+	left: 5%;
+	color:white;
+	width:90%;
+	height:10%;
+	background-color:black;
+	border-bottom-right-radius:30px;
+	border-bottom-left-radius:30px;
+}
+.loginButton{
+	all: unset;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	position: absolute;
+	top:83%;
+	background-color:white;
+	width:35%;
+	height:4%;
+	left:32.5%;
+	text-align:center;
+	border-radius:15px;
+	border: 1.5px solid #707070;
+}
+.checkinButton{
+	all: unset;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	position: absolute;
+	top:74%;
+	background-color:white;
+	width:35%;
+	height:4%;
+	left:32.5%;
+	text-align:center;
+	border-radius:15px;
+	border: 1.5px solid #707070;
+}
+
+.newAccButton{
+	all: unset;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	position: absolute;
+	top:88.25%;
+	width:30%;
+	left:35%;
+	text-align:center;
+}
+#checkStatus{
+	all: unset;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	position: absolute;
+	top:81.5%;
+	width:50%;
+	left:25%;
+	text-align:center;
+}
+#spotStatus{
+	all: unset;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	position: absolute;
+	top:86%;
+	width:50%;
+	left:25%;
+	text-align:center;
+}
+#satSeen{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.5em;
+	position: absolute;
+	top:20%;
+	width:50%;
+	left:15%;
+	text-align:left;
+	color: white;
+} 
+#checkins{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.5em;
+	position: absolute;
+	top:24%;
+	width:50%;
+	left:15%;
+	text-align:left;
+	color:white;
+}
+#totalPoints{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.5em;
+	position: absolute;
+	top:28%;
+	width:50%;
+	left:15%;
+	text-align:left;
+	color: white;
+} 
+#totalProps{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.5em;
+	position: absolute;
+	top:32%;
+	width:50%;
+	left:15%;
+	text-align:left;
+	color:white;
+}
+#newAccButton{
+	all: unset;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	position: absolute;
+	top:67%;
+	background-color:white;
+	width:30%;
+	height:4%;
+	left:35%;
+	text-align:center;
+	border-radius:15px;
+	border: 1.5px solid #707070;
+}
+#newAccButton2{
+	all: unset;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	position: absolute;
+	top:80%;
+	background-color:white;
+	width:30%;
+	height:4%;
+	left:17%;
+	text-align:center;
+	border-radius:15px;
+	border: 1.5px solid #707070;
+}
+#newAccButton3{
+	all: unset;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	position: absolute;
+	top:79%;
+	background-color:white;
+	width:30%;
+	height:4%;
+	left:35%;
+	text-align:center;
+	border-radius:15px;
+	border: 1.5px solid #707070;
+}
+#logoutButton{
+	all: unset;
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	position: absolute;
+	top:80%;
+	background-color:white;
+	width:30%;
+	height:4%;
+	right:17%;
+	text-align:center;
+	border-radius:15px;
+	border: 1.5px solid #707070;
+}
+#satListButton{
+	border-top-left-radius:30px;
+	border-top-right-radius:30px;
+	height:9%;
+	position: absolute;
+	bottom:0;
+	left:5%;
+	background-color:black;
+	width:18.75%;
+}
+#myAccountButton{
+	border-top-left-radius:30px;
+	border-top-right-radius:30px;
+	height:9%;
+	position: absolute;
+	bottom:0;
+	left:28.75%;
+	background-color:black;
+	width:18.75%;
+}
+#gameButton{
+	border-top-left-radius:30px;
+	border-top-right-radius:30px;
+	height:9%;
+	position: absolute;
+	bottom:0;
+	left:28.75%;
+	background-color:black;
+	width:18.75%;
+}
+#gameButton2{
+	border-top-left-radius:30px;
+	border-top-right-radius:30px;
+	height:9%;
+	position: absolute;
+	bottom:0;
+	left:52.5%;
+	background-color:black;
+	width:42.5%;
+}
+#leaderBoardButton{
+	border-top-left-radius:30px;
+	border-top-right-radius:30px;
+	height:9%;
+	position: absolute;
+	bottom:0;
+	left:52.5%;
+	background-color:black;
+	width:18.75%;
+}
+#contactUsButton{
+	border-top-left-radius:30px;
+	border-top-right-radius:30px;
+	height:9%;
+	position: absolute;
+	bottom:0;
+	left:76.25%;
+	background-color:black;
+	width:18.75%;
+}
+#satListBut2{
+	border-top-left-radius:30px;
+	border-top-right-radius:30px;
+	height:9%;
+	position: absolute;
+	bottom:0;
+	left:5%;
+	background-color:black;
+	width:42.5%;
+}
+#contactUsBut{
+	border-top-left-radius:30px;
+	border-top-right-radius:30px;
+	height:9%;
+	position: absolute;
+	bottom:0;
+	left:52.5%;
+	background-color:black;
+	width:42.5%;
+}
+#satListBut img{
+	height:70%;
+	position: absolute;
+	bottom:15%;
+	left:43%;
+}
+#satListBut2 img{
+	height:70%;
+	position: absolute;
+	bottom:15%;
+	left:43%;
+}
+#satListButton img{
+	height:70%;
+	position: absolute;
+	bottom:15%;
+	left:26%;
+}
+#contactUsBut img{
+	height:70%;
+	position: absolute;
+	bottom:15%;
+	left:42%;
+}
+#contactUsButton img{
+	height:70%;
+	position: absolute;
+	bottom:15%;
+	left:26%;
+}
+#myAccountButton img{
+	height:70%;
+	position: absolute;
+	bottom:15%;
+	left:25%;
+}
+#gameButton img{
+	height:70%;
+	position: absolute;
+	bottom:15%;
+	left:25%;
+}
+#gameButton2 img{
+	height:70%;
+	position: absolute;
+	bottom:15%;
+	left:39%;
+}
+#leaderBoardButton img{
+	height:70%;
+	position: absolute;
+	bottom:15%;
+	left:25%;
+}
+#canvasOne{
+	position: absolute;
+	top:11%;
+	left:5%;
+	width: 90%; 
+	height: 59%; 
+	background-color: black;
+	border-radius:30px;
+	box-shadow: 0px 0px 7px 4px rgb(200,200,200);
+}
+.emailForm{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	height:4%;
+	position: absolute;
+	top:71%;
+	left:15%;
+	width:70%;
+}
+.emailForm2{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	position: absolute;
+	height:4%;
+	top:35%;
+	left:15%;
+	width:70%;
+}
+.emailForm3{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	position: absolute;
+	height:4%;
+	top:40%;
+	left:15%;
+	width:70%;
+}
+.emailForm4{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	position: absolute;
+	height:4%;
+	top:24%;
+	left:15%;
+	width:70%;
+}
+#passwordForm{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	height:4%;
+	position: absolute;
+	top:77%;
+	left:15%;
+	width:70%;
+}
+#passwordForm2{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	height:4%;
+	position: absolute;
+	top:51%;
+	left:15%;
+	width:70%;
+}
+#passwordForm3{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	height:4%;
+	position: absolute;
+	top:59%;
+	left:15%;
+	width:70%;
+}
+#passwordForm4{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	height:4%;
+	position: absolute;
+	top:56%;
+	left:15%;
+	width:70%;
+}
+#passwordForm5{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	height:4%;
+	position: absolute;
+	top:64%;
+	left:15%;
+	width:70%;
+}
+#passwordForm6{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	height:4%;
+	position: absolute;
+	top:72%;
+	left:15%;
+	width:70%;
+}
+.usernameForm{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	height:4%;
+	position: absolute;
+	top:43%;
+	left:15%;
+	width:70%;
+}
+.usernameForm2{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	height:4%;
+	position: absolute;
+	top:48%;
+	left:15%;
+	width:70%;
+}
+.usernameForm3{
+	font-family: Futura,Trebuchet MS,Arial,sans-serif;
+	font-size:1.3em;
+	border-radius:15px;
+	height:40%;
+	position: absolute;
+	top:34%;
+	left:15%;
+	width:70%;
+}
+#newAcc{
+	background-color:black;
+	width:90%;
+	height:45%;
+	position: absolute;
+	top:30%;
+	left:5%;
+	border-radius:30px;
+}
+input{
+	height:4%;
+}
+#logOutButton{
+	width: 50px;
+}
+#map {
+  height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.form{
+	margin:auto;
+}
+@media screen and (min-width: 1000px) {
+
+}

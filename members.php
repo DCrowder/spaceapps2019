@@ -19,67 +19,34 @@
 </div>
 
 <form action="" method="post">
-<input type="submit" value="CREATE AN ACCOUNT" class="newAccButton" name="newAccButton" class="but" />
+	<input type="submit" class="checkinButton" value="CHECK IN"  name="checkinButton"/>
 </form> 
 
-<div id="home">
-<br>
-	<form action="" method="post">
-	<input type="email" class="emailForm" size="40" name="Email" placeholder="   EMAIL"><br>
-	<input type="password" id="passwordForm" size="40" name="Password" placeholder="   PASSWORD"><br>
-	<input type="submit" class="loginButton" value="LOGIN"  name="loginButton"/>
-	</form> 
-<?php
-if(isset($_POST["contactUsBut"])){
-	header('Location: /contact.php');
-}
-if(isset($_COOKIE["seshID"])) {
-	$query = mysqli_query($conn,'SELECT * FROM sessions WHERE seshID="'.$_COOKIE["seshID"].'"');
-	if(mysqli_num_rows($query) > 0){
-		header('Location: members.php?sesh='.$_COOKIE["seshID"]);
-	}
-}
-if(isset($_POST["loginButton"])){
-	$result = mysqli_query($conn,'SELECT password, userID FROM users WHERE email="'.$_POST["Email"].'"');
-	if (mysqli_num_rows($result) ==1) {
- 	   	while($row = mysqli_fetch_assoc($result)){
-			if($row["password"]==$_POST["Password"]){
-				echo "Login Succesful";	
-				$query = mysqli_query($conn,'SELECT seshID FROM sessions WHERE userID="'.$row["userID"].'"');
-				$key="";
-				for($i=0;$i<10;$i++){
-					$key=$key.substr("aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789",rand(0,61),1);
-				}
-				if(mysqli_num_rows($query) > 0){
-					$sql = "UPDATE sessions SET seshID='".$key."' WHERE userID='".$row["userID"]."'";
-					mysqli_query($conn, $sql);
-				}else{
-					$sql = "INSERT INTO sessions (seshID,userID) VALUES ('".$key."','".$row["userID"]."')";
-					mysqli_query($conn, $sql);
-				}
-				setcookie("seshID", $key, time() + (60*60), "/");
-				header('Location: members.php');
-				exit;	
-			}else{echo "<p>INCORRECT PASSWORD</p>";}	
-   		}
-	} else {
-    		echo "<p>USER NOT FOUND</p>";
-	}
-}
+<h3 id="checkStatus">
+NO SATELLITES OVERHEAD
+</h3>
+<h3 id="spotStatus">
+NOT IN A HOTSPOT
+</h3>
 
-if(isset($_POST["newAccButton"])){
-	header('Location: newAccount.php');
-}
-?>
-</div>
-<div class="nonUserFooter">
+<br>
+
+<div class="memberFooter">	
 	<form action="" method="post">
-	<button type="submit" id="satListBut2" name="satListButton">
+	<button type="submit" id="satListButton" name="satListButton">
 		<img src="/resources/sat.png" alt="SATLIST">
 	</button>
 	</form>
 	<form action="" method="post">
-	<button type="submit" id="contactUsBut" name="contactUsBut">
+	<button type="submit" id="myAccountButton" name="myAccountButton">
+		<img src="/resources/myAcc.png" alt="ACCOUNT">
+	</button>
+	</form>
+	<div id="leaderBoardButton">
+		<img src="/resources/trophy.png" alt="LEADERS">
+	</div>
+	<form action="" method="post">
+	<button type="submit" id="contactUsButton" name="contactUsButton">
 		<img src="/resources/contact.png" alt="CONTACT">
 	</button>
 	</form>
@@ -88,32 +55,47 @@ if(isset($_POST["newAccButton"])){
 if(isset($_POST["satListButton"])){
 	header('Location: /satellites.php');
 }
-mysqli_close($conn);
+if(isset($_POST["myAccountButton"])){
+	header('Location: /myAccount.php');
+}
+if(isset($_POST["contactUsButton"])){
+	header('Location: /contact.php');
+}
+$key = $_COOKIE["seshID"];
+$result = mysqli_query($conn,'SELECT userID FROM sessions WHERE seshID="'.$key.'"');
+if($row = mysqli_fetch_assoc($result)){
+	$id=$row["userID"];
+	$result = mysqli_query($conn,'SELECT firstName FROM users WHERE id="'.$id.'"');
+	while($row = mysqli_fetch_assoc($result)){
+		echo "<br>".$row["firstName"];
+	}
+}else{
+	echo "<br>invalid session key";
+	header('Location: index.php');
+}
+include('footer.php'); 
 ?>
 <script>
-	var i=0;
-	var lat=28;
-	var long=-83;
-	var lat2=28;
-	var long2=-83;
-	var lat3=28;
-	var long3=-83;
-	var lat4=28;
-	var long4=-83;
-	var lat5=-24;
-	var long5=135;
-	var lat6=-24;
-	var long6=135;
-	var lat7=-24;
-	var long7=135;
-	var lat8=-24;
-	var long8=135;
+	var mylat=0;
+	var mylong=0;
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  }
+}
+function showPosition(position) {
+	wwd.goTo(new WorldWind.Location(position.coords.latitude, position.coords.longitude));
+	mylat=position.coords.latitude;
+	mylong=position.coords.longitude;
+}
+getLocation();
     // Register an event listener to be called when the page is loaded.
     window.addEventListener("load", eventWindowLoaded, false);
 
     // Define the event listener to initialize Web WorldWind.
 	var wwd = new WorldWind.WorldWindow("canvasOne");
     function eventWindowLoaded() {
+	
         // Create a WorldWindow for the canvas.
         
         // Add some image layers to the WorldWindow's globe.
@@ -126,6 +108,31 @@ mysqli_close($conn);
         wwd.addLayer(new WorldWind.ViewControlsLayer(wwd));
 	wwd.addLayer(new WorldWind.StarFieldLayer());
 
+	// Create a layer to hold the surface shapes.
+        var shapesLayer = new WorldWind.RenderableLayer("Surface Shapes");
+        wwd.addLayer(shapesLayer);
+
+        // Create and set common attributes for the surface shapes.
+        // Real apps typically create new attributes objects for each shape unless they know the attributes
+        // can be shared among all shapes.
+        var attributes = new WorldWind.ShapeAttributes(null);
+        attributes.outlineColor = WorldWind.Color.BLUE;
+        attributes.interiorColor = new WorldWind.Color(0, 1, 1, 0.5);
+
+        // Create common highlight attributes. These are displayed whenever the user hovers over the shapes.
+        var highlightAttributes = new WorldWind.ShapeAttributes(attributes);
+        highlightAttributes.interiorColor = new WorldWind.Color(1, 1, 1, 1);
+
+	// Create a surface circle.
+
+	//setTimeout('alert(mylat+" "+mylong);',0);
+	//alert(mylat+" "+mylong+" second");
+        var circle = new WorldWind.SurfaceCircle(new WorldWind.Location(27,-83), 4e5, attributes);
+        circle.highlightAttributes = highlightAttributes;
+        shapesLayer.addRenderable(circle);
+	// Set up a highlight controller to handle highlighting when the user hovers the shapes.
+        var highlightController = new WorldWind.HighlightController(wwd);
+	
 var modelLayer = new WorldWind.RenderableLayer();
 wwd.addLayer(modelLayer);
 var position = new WorldWind.Position(28, -83, 200000.0);
