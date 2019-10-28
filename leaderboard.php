@@ -21,19 +21,37 @@ if(isset($_POST["myAccount"])){
 if(isset($_POST["gameButton"])){
 	header('Location: /members.php');
 }
+$key = $_COOKIE["seshID"];
+$result = mysqli_query($conn,'SELECT userID FROM sessions WHERE seshID="'.$key.'"');
+if($row = mysqli_fetch_assoc($result)){
+	$id=$row["userID"];
+	$result = mysqli_query($conn,'SELECT firstName FROM users WHERE id="'.$id.'"');
+	while($row = mysqli_fetch_assoc($result)){
+		echo "<br>".$row["firstName"];
+	}
+}else{
+	echo "<br>invalid session key";
+	header('Location: index.php');
+}
+$result = mysqli_query($conn,'SELECT satName, currentOwner FROM sats');
+if (mysqli_num_rows($result) >0) {
+	while($row = mysqli_fetch_assoc($result)){
+		$sum= $row["sum"];
+	}
+}
 ?>
 
-<h2 id="myAcc">LEADERBOARDS</h2>
+<h2 id="myAcc2">LEADERBOARDS</h2>
 <div id="myAccForm2" style="overflow:scroll;">
 	<div id="lead1">
 		<h2 id="sat1abbrev">
-		USERNAME
+		DeltaOrion7
 		</h2>
 		<h4 id="sat1norad">
-		OWNS
+		OWNS VANGUARD 1
 		</h4>
 		<h4 id="sat1name">
-		FOR 3 DAYS
+		FOR 6 DAYS
 		</h4>
 		<form action="" method="post">
 			<input type="submit" id="moreButton" value="PROPS" name="props1Button"/>
@@ -41,13 +59,13 @@ if(isset($_POST["gameButton"])){
 	</div>
 	<div id="lead2">
 		<h2 id="sat1abbrev">
-		USERNAME
+		VortexKing
 		</h2>
 		<h4 id="sat1norad">
-		OWNS 
+		OWNS STARLINK OBJ BM
 		</h4>
 		<h4 id="sat1name">
-		FOR 3 DAYS
+		FOR 4 DAYS
 		</h4>
 		<form action="" method="post">
 			<input type="submit" id="moreButton" value="PROPS" name="props2Button"/>
@@ -55,13 +73,13 @@ if(isset($_POST["gameButton"])){
 	</div>
 	<div id="lead3">
 		<h2 id="sat1abbrev">
-		USERNAME
+		CassieCassiopeia
 		</h2>
 		<h4 id="sat1norad">
-		OWNS 
+		OWNS IRIDIUM 167
 		</h4>
 		<h4 id="sat1name">
-		FOR 3 DAYS
+		FOR 4 DAYS
 		</h4>
 		<form action="" method="post">
 			<input type="submit" id="moreButton" value="PROPS" name="props3Button"/>
@@ -69,10 +87,10 @@ if(isset($_POST["gameButton"])){
 	</div>
 	<div id="lead4">
 		<h2 id="sat1abbrev">
-		USERNAME
+		StarLord98
 		</h2>
 		<h4 id="sat1norad">
-		OWNS 
+		OWNS PRISMA
 		</h4>
 		<h4 id="sat1name">
 		FOR 3 DAYS
@@ -83,13 +101,13 @@ if(isset($_POST["gameButton"])){
 	</div>
 	<div id="lead5">
 		<h2 id="sat1abbrev">
-		USERNAME
+		GalaxyGirl
 		</h2>
 		<h4 id="sat1norad">
-		OWNS 
+		OWNS FIREBIRD 4
 		</h4>
 		<h4 id="sat1name">
-		FOR 3 DAYS
+		FOR 2 DAYS
 		</h4>
 		<form action="" method="post">
 			<input type="submit" id="moreButton" value="PROPS" name="props5Button"/>
@@ -99,13 +117,13 @@ if(isset($_POST["gameButton"])){
 <div id="myAccForm3" style="overflow:scroll;">
 	<div id="lead1">
 		<h2 id="sat1abbrev">
-		USERNAME
+		JonSnow
 		</h2>
 		<h4 id="sat1norad">
-		CHECK INS:
+		CHECK INS: 51
 		</h4>
 		<h4 id="sat1name">
-		TOTAL POINTS:
+		TOTAL POINTS: 2358
 		</h4>
 		<form action="" method="post">
 			<input type="submit" id="moreButton" value="PROPS" name="props6Button"/>
@@ -113,13 +131,13 @@ if(isset($_POST["gameButton"])){
 	</div>
 	<div id="lead2">
 		<h2 id="sat1abbrev">
-		USERNAME
+		GammaMamma
 		</h2>
 		<h4 id="sat1norad">
-		CHECK INS:
+		CHECK INS: 42
 		</h4>
 		<h4 id="sat1name">
-		TOTAL POINTS:
+		TOTAL POINTS: 2048
 		</h4>
 		<form action="" method="post">
 			<input type="submit" id="moreButton" value="PROPS" name="props7Button"/>
@@ -127,13 +145,13 @@ if(isset($_POST["gameButton"])){
 	</div>
 	<div id="lead3">
 		<h2 id="sat1abbrev">
-		USERNAME
+		AndyAndromeda
 		</h2>
 		<h4 id="sat1norad">
-		CHECK INS:
+		CHECK INS: 36
 		</h4>
 		<h4 id="sat1name">
-		TOTAL POINTS:
+		TOTAL POINTS: 1849
 		</h4>
 		<form action="" method="post">
 			<input type="submit" id="moreButton" value="PROPS" name="props8Button"/>
@@ -141,13 +159,13 @@ if(isset($_POST["gameButton"])){
 	</div>
 	<div id="lead4">
 		<h2 id="sat1abbrev">
-		USERNAME
+		Nebula15
 		</h2>
 		<h4 id="sat1norad">
-		CHECK INS:
+		CHECK INS: 29
 		</h4>
 		<h4 id="sat1name">
-		TOTAL POINTS:
+		TOTAL POINTS: 1608
 		</h4>
 		<form action="" method="post">
 			<input type="submit" id="moreButton" value="PROPS" name="props9Button"/>
@@ -155,13 +173,13 @@ if(isset($_POST["gameButton"])){
 	</div>
 	<div id="lead5">
 		<h2 id="sat1abbrev">
-		USERNAME
+		EpsilonElliot
 		</h2>
 		<h4 id="sat1norad">
-		CHECK INS:
+		CHECK INS: 25
 		</h4>
 		<h4 id="sat1name">
-		TOTAL POINTS:
+		TOTAL POINTS: 1492
 		</h4>
 		<form action="" method="post">
 			<input type="submit" id="moreButton" value="PROPS" name="props10Button"/>

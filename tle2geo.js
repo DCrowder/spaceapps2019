@@ -1,10 +1,11 @@
-var satellite = require('satellite.js');
+//var satellite = require('satellite.js');
 //var getTLE = require('getTLE.js');
 
 const tle =  {"info":{"satid":40059,"satname":"OCO 2","transactionscount":72},"tle":"1 40059U 14035A   19298.85454994 +.00000009 +00000-0 +12049-4 0  9997\r\n2 40059 098.2059 237.8897 0001240 078.8270 281.3067 14.57115237282719"}  
 
 // You can get ECF, Geodetic, Look Angles, and Doppler Factor.
 function parseTle(tleObj) {
+	try{
 	var tleString = JSON.stringify(tleObj.tle);
 	//console.log(tleString);
 	var line2index = tleString.indexOf('\\n2 ') + 2;
@@ -13,9 +14,13 @@ function parseTle(tleObj) {
 
 	//console.log(tleLine2);
 	return [tleLine1, tleLine2];
+	}catch{
+		return 0;
+	}
 }
 
 function tle2geo(tle){
+	try{
 	var tleStrings = parseTle(tle);
 	var tleLine1 = tleStrings[0];
 	var tleLine2 = tleStrings[1];
@@ -44,10 +49,9 @@ function tle2geo(tle){
 
 	var positionGd = satellite.eciToGeodetic(positionEci, gmst);
 
-	return positionGd;		
+	return positionGd;
+	}catch{
+		return 0;
+	}
 }
 
-position = tle2geo(tle);
-
-
-console.log(JSON.stringify(position));

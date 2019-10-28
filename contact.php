@@ -8,7 +8,21 @@
 <body>
 <link rel="stylesheet" type="text/css" href="theme.css">
 <script src="myScript.js"></script>
-<?php include('header.php'); ?>
+<?php include('header.php'); 
+$key = $_COOKIE["seshID"];
+$result = mysqli_query($conn,'SELECT userID FROM sessions WHERE seshID="'.$key.'"');
+if($row = mysqli_fetch_assoc($result)){
+	$id=$row["userID"];
+	$result = mysqli_query($conn,'SELECT firstName FROM users WHERE id="'.$id.'"');
+	while($row = mysqli_fetch_assoc($result)){
+		echo "<br>".$row["firstName"];
+	}
+}else{
+	echo "<br>invalid session key";
+	$tmp='';
+	if(isset($_GET["sat"])){$tmp= "?sat=".$_GET["sat"];}
+	header('Location: index.php'.$tmp);
+}?>
 
 <h2 id="myAcc">CONTACT US</h2>
 <div id="myAccForm"></div>
@@ -37,27 +51,15 @@
 if(isset($_POST["satListButton"])){
 	header('Location: /satellites.php');
 }
-if(isset($_POST["logoutButton"])){
-	echo test;
-	$result = mysqli_query($conn,'DELETE FROM sessions WHERE userID="'.$id.'"');
-	setcookie("seshID", "", time() - 3600); 
-	header('Location: /');
-	exit;
-}
 if(isset($_POST["gameButton"])){
 	header('Location: /index.php');
 }
 if(isset($_POST["newAccButton"])){
-	$query = mysqli_query($conn,'SELECT * FROM users WHERE email="'.$_POST["Email"].'"');
-	if(mysqli_num_rows($query) > 0){
-		echo "That email is already signed up!";
+	$sql="INSERT INTO feedback(userID,email,content) VALUES ('".$id."','".$_POST["Email"]."','".$_POST["Username"]."')";
+	if(mysqli_query($conn,$sql)===TRUE){
+		echo "<p>WE APPRECIATE THE FEEDBACK AND WILL RESPOND ASAP!</p>";
 	}else{
-	$sql = "INSERT INTO users (email,username,password)
-	VALUES ('".$_POST["Email"]."','".$_POST["Username"]."','".$_POST["Password"]."')";
-	      if (mysqli_query($conn, $sql)) {
- 	        echo "New user created successfully<br>";
-		header('Location: index.php');
- 	     }
+		echo "<p>SOMETHING WENT WRONG, PLEASE TRY AGAIN!</p>";
 	}
 }
 mysqli_close($conn);

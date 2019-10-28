@@ -9,34 +9,79 @@
 <link rel="stylesheet" type="text/css" href="theme.css">
 <script src="myScript.js"></script>
 
-<?php include('header.php'); ?>
+<?php include('header.php');
+$key = $_COOKIE["seshID"];
+$result = mysqli_query($conn,'SELECT userID FROM sessions WHERE seshID="'.$key.'"');
+if($row = mysqli_fetch_assoc($result)){
+	$id=$row["userID"];
+	$result = mysqli_query($conn,'SELECT username FROM users WHERE userID="'.$id.'"');
+	while($row = mysqli_fetch_assoc($result)){
+		$name = $row["username"];
+	}
+}else{
+	echo "<br>invalid session key";
+	$tmp='';
+	if(isset($_GET["sat"])){$tmp= "?sat=".$_GET["sat"];}
+	header('Location: index.php'.$tmp);
+}
+ ?>
 
-<h2 id="myAcc">MY ACCOUNT</h2>
-<div id="myAccForm"></div>
+<h2 id="myAcc2"><?php echo $name; ?></h2>
+<div id="myAccForm4"></div>
 	<br>
 
 	<form action="" method="post">
-		<input type="email" class="emailForm3" size="40" name="Email" placeholder="   EMAIL" required="required"><br>
+		
 		<input type="text" class="usernameForm2" size="40" name="Username" placeholder="   DISPLAY NAME" required="required"><br>
 		<input type="password" id="passwordForm4" size="40" name="Password" placeholder="   NEW PASSWORD" required="required"><br>
 		<input type="password" id="passwordForm5" size="40" name="ConfirmPassword" placeholder="   CONFIRM NEW PASSWORD" required="required"><br>
-		<input type="password" id="passwordForm6" size="40" name="ConfirmPassword" placeholder="   CURRENT PASSWORD" required="required"><br>
+		<input type="password" id="passwordForm6" size="40" name="oldPassword" placeholder="   CURRENT PASSWORD" required="required"><br>
 		<input type="submit" id="newAccButton2" value="UPDATE" name="newAccButton"/>
 	</form>
 	<form action="" method="post">
 		<input type="submit" id="logoutButton" value="LOG OUT" name="logoutButton"/>
 	</form> 
+	
+<?php
+	$result = mysqli_query($conn,'SELECT SUM(points) as sum FROM checkins WHERE userID="'.$id.'"');
+	if (mysqli_num_rows($result) ==1) {
+		while($row = mysqli_fetch_assoc($result)){
+			$sum= $row["sum"];
+		}
+	}
+	$result = mysqli_query($conn,'SELECT COUNT(checkID) as checkins FROM checkins WHERE userID="'.$id.'"');
+	if (mysqli_num_rows($result) ==1) {
+		while($row = mysqli_fetch_assoc($result)){
+			$checkins = $row["checkins"];
+		}
+	}
+	$result = mysqli_query($conn,'SELECT COUNT(DISTINCT(satID)) as satellites FROM checkins WHERE userID="'.$id.'"');
+	if (mysqli_num_rows($result) ==1) {
+		while($row = mysqli_fetch_assoc($result)){
+			$satellites = $row["satellites"];
+		}
+	}
+	$result = mysqli_query($conn,'SELECT COUNT(propID) as props FROM props WHERE toID="'.$id.'"');
+	if (mysqli_num_rows($result) ==1) {
+		while($row = mysqli_fetch_assoc($result)){
+			$props = $row["props"];
+		}
+	}
+
+
+?>
+	
 <h3 id="satSeen">
-SATELLITES SEEN: 0
+SATELLITES SEEN: <?php echo $satellites;?>
 </h3>
 <h3 id="checkins">
-TOTAL CHECK INS: 0
+TOTAL CHECK INS: <?php echo $checkins;?>
 </h3>
 <h3 id="totalPoints">
-TOTAL POINTS: 0
+TOTAL POINTS: <?php echo $sum;?>
 </h3>
 <h3 id="totalProps">
-TOTAL PROPS: 0
+TOTAL PROPS: <?php echo $props;?>
 </h3>
 <div class="memberFooter">
 	<form action="" method="post">
@@ -61,6 +106,39 @@ TOTAL PROPS: 0
 	</form>
 </div>
 <?php
+$key = $_COOKIE["seshID"];
+$result = mysqli_query($conn,'SELECT userID FROM sessions WHERE seshID="'.$key.'"');
+if($row = mysqli_fetch_assoc($result)){
+	$id=$row["userID"];
+	$result = mysqli_query($conn,'SELECT firstName FROM users WHERE id="'.$id.'"');
+	while($row = mysqli_fetch_assoc($result)){
+		echo "<br>".$row["firstName"];
+	}
+}else{
+	echo "<br>invalid session key";
+	header('Location: index.php');
+}
+if(isset($_POST["newAccButton"])){
+	if($_POST["ConfirmPassword"]==$_POST["Password"]){
+		$result = mysqli_query($conn,'SELECT password FROM users WHERE userID="'.$id.'"');
+		if (mysqli_num_rows($result) ==1) {
+			while($row = mysqli_fetch_assoc($result)){
+				if($row["password"]==$_POST["oldPassword"]){
+					$sql="UPDATE users SET username='".$_POST["Username"]."', password='".$_POST["Password"]."' WHERE userID='".$id."'";
+					if(mysqli_query($conn,$sql)===TRUE){
+						echo "<p>ACCOUNT SUCCESSFULLY UPDATED!</p>";
+					}else{
+						echo "<p>USERNAME ALREADY TAKEN</p>";
+					}
+				}else{echo "<p>INCORRECT PASSWORD</p>";}	
+			}
+		} else {
+				echo "<p>USER NOT FOUND</p>";
+		}
+	}else{
+		echo "<p>PASSWORDS DIDN'T MATCH</p>";
+	}
+}
 if(isset($_POST["leaderBoardButton"])){
 	header('Location: /leaderboard.php');
 }
@@ -79,19 +157,6 @@ if(isset($_POST["logoutButton"])){
 }
 if(isset($_POST["gameButton"])){
 	header('Location: /members.php');
-}
-if(isset($_POST["newAccButton"])){
-	$query = mysqli_query($conn,'SELECT * FROM users WHERE email="'.$_POST["Email"].'"');
-	if(mysqli_num_rows($query) > 0){
-		echo "That email is already signed up!";
-	}else{
-	$sql = "INSERT INTO users (email,username,password)
-	VALUES ('".$_POST["Email"]."','".$_POST["Username"]."','".$_POST["Password"]."')";
-	      if (mysqli_query($conn, $sql)) {
- 	        echo "New user created successfully<br>";
-		header('Location: index.php');
- 	     }
-	}
 }
 mysqli_close($conn);
 ?>
